@@ -1,0 +1,28 @@
+{
+  "name": "pomodoro-with-todos",
+  "version": "1.0.0",
+  "description": "A pomodoro timer application with todo list built with simple HTML, CSS and JavaScript",
+  "main": "main.js",
+  "scripts": {
+    "start": "npx browser-sync start -sw"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timbryandev/pomodor-with-todos.git"
+  },
+  "keywords": [
+    "pomodoro",
+    "todo",
+    "javascript",
+    "html",
+    "css"
+  ],
+  "author": "Tim Bryan <https://pomodoro.timbryan.dev>",
+  "bugs": {
+    "url": "https://github.com/timbryandev/pomodor-with-todos/issues"
+  },
+  "homepage": "https://github.com/timbryandev/pomodor-with-todos#readme",
+  "dependencies": {
+    "browser-sync": "^2.26.12"
+  }
+}
