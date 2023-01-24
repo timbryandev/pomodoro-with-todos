@@ -2,14 +2,6 @@
   "name": "pomodoro-with-todos",
   "version": "1.0.0",
   "description": "A pomodoro timer application with todo list built with simple HTML, CSS and JavaScript",
-  "main": "main.js",
-  "scripts": {
-    "start": "npx browser-sync start -sw"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/timbryandev/pomodoro-with-todos.git"
-  },
   "keywords": [
     "pomodoro",
     "todo",
@@ -17,12 +9,30 @@
     "html",
     "css"
   ],
-  "author": "Tim Bryan <https://pomodoro.timbryan.dev>",
+  "homepage": "https://github.com/timbryandev/pomodoro-with-todos#readme",
   "bugs": {
     "url": "https://github.com/timbryandev/pomodoro-with-todos/issues"
   },
-  "homepage": "https://github.com/timbryandev/pomodoro-with-todos#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timbryandev/pomodoro-with-todos.git"
+  },
+  "author": "Tim Bryan <https://pomodoro.timbryan.dev>",
+  "main": "main.js",
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "vite",
+    "preview": "vite preview"
+  },
   "dependencies": {
-    "browser-sync": "^2.26.12"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@vitejs/plugin-react": "^3.0.1",
+    "typescript": "^4.9.3",
+    "vite": "^4.0.4"
   }
 }
