@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/timbryandev/pomodor-with-todos.git"
+    "url": "git+https://github.com/timbryandev/pomodoro-with-todos.git"
   },
   "keywords": [
     "pomodoro",
@@ -19,9 +19,9 @@
   ],
   "author": "Tim Bryan <https://pomodoro.timbryan.dev>",
   "bugs": {
-    "url": "https://github.com/timbryandev/pomodor-with-todos/issues"
+    "url": "https://github.com/timbryandev/pomodoro-with-todos/issues"
   },
-  "homepage": "https://github.com/timbryandev/pomodor-with-todos#readme",
+  "homepage": "https://github.com/timbryandev/pomodoro-with-todos#readme",
   "dependencies": {
     "browser-sync": "^2.26.12"
   }
