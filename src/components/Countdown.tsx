@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { TimerMode, TimerActions, useGlobalContext } from '../context/global'
 import { TimeValues } from '../types/timer'
+import { showNotification } from '../utils/browserNotification'
 import { millisToMinuteSeconds } from '../utils/time'
 
 interface CountdownProps {
@@ -25,6 +26,9 @@ export const Countdown = ({ mode }: CountdownProps) => {
           type: TimerActions.Reset,
           timer: mode,
         })
+
+        showNotification(`${mode} has has ended.`)
+
         return
       }
 
@@ -47,6 +51,12 @@ export const Countdown = ({ mode }: CountdownProps) => {
     const action = evt.currentTarget.getAttribute('data-action') as
       | TimerActions.Start
       | TimerActions.Pause
+
+    if (action === TimerActions.Start) {
+      showNotification(
+        `${mode} has started. Time remaining: ${state[mode].current}`,
+      )
+    }
 
     dispatch({
       type: action,
