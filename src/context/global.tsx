@@ -251,7 +251,7 @@ export function useGlobalContext(): {
 
 //   interval = setInterval(function () {
 //     timer.remainingTime = getRemainingTime(endTime)
-//     updateClock()
+//     updateCountdown()
 
 //     total = timer.remainingTime.total
 //     if (total <= 0) {
@@ -290,7 +290,7 @@ export function useGlobalContext(): {
 //   mainButton.classList.remove('active')
 // }
 
-// function updateClock() {
+// function updateCountdown() {
 //   const { remainingTime } = timer
 //   const minutes = `${remainingTime.minutes}`.padStart(2, '0')
 //   const seconds = `${remainingTime.seconds}`.padStart(2, '0')

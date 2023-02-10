@@ -1,11 +1,11 @@
 import { TimerMode } from '../context/global'
-import { Clock } from './Clock'
+import { Countdown } from './Countdown'
 
 export const LongBreak = () => {
   return (
     <div className='timer'>
       <h2>Long BReak</h2>
-      <Clock mode={TimerMode.LongBreak} />
+      <Countdown mode={TimerMode.LongBreak} />
     </div>
   )
 }

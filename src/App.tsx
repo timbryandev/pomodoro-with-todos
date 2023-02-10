@@ -63,7 +63,7 @@ export default function App() {
 //             Long break
 //           </button>
 //         </div>
-//         <Clock ms={time} />
+//         <Countdown ms={time} />
 //         <button className='main-button' data-action='start' id='js-btn'>
 //           Start
 //         </button>

@@ -3,11 +3,11 @@ import { TimerMode, TimerActions, useGlobalContext } from '../context/global'
 import { TimeValues } from '../types/timer'
 import { millisToMinuteSeconds } from '../utils/time'
 
-interface ClockProps {
+interface CountdownProps {
   mode: TimerMode
 }
 
-export const Clock = ({ mode }: ClockProps) => {
+export const Countdown = ({ mode }: CountdownProps) => {
   const { state, dispatch } = useGlobalContext()
   const formattedTime = millisToMinuteSeconds(state[mode].current)
 
@@ -50,8 +50,8 @@ export const Clock = ({ mode }: ClockProps) => {
   }, [state[mode].current, state[mode].isTicking])
 
   return (
-    <div className='clock'>
-      <span className='clock__time'>{formattedTime}</span>
+    <div className='countdown'>
+      <span className='countdown__time'>{formattedTime}</span>
       <button
         className='main-button'
         data-action={
