@@ -174,6 +174,17 @@ function globalReducer(
   }
 }
 
+function getExistingState() {
+  const localState = localStorage.getItem(LOCALSTORAGE_KEY_GLOBAL_CONTEXT)
+  let state = null
+  try {
+    state = JSON.parse(localState ?? '')
+  } catch (err) {
+    state = null
+  }
+  return state
+}
+
 const GlobalContext = createContext<{
   state: GlobalState
   dispatch: React.Dispatch<GlobalAction>
@@ -184,19 +195,12 @@ export function GlobalProvider({
 }: {
   children: React.ReactNode
 }): JSX.Element {
-  const [state, dispatch] = useReducer(globalReducer, { ...initialState })
+  const [state, dispatch] = useReducer(
+    globalReducer,
+    getExistingState() ?? { ...initialState },
+  )
 
   const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch])
-
-  useEffect(() => {
-    const existingState = localStorage.getItem(LOCALSTORAGE_KEY_GLOBAL_CONTEXT)
-    if (typeof existingState === 'string') {
-      dispatch({
-        type: 'HYDRATE',
-        payload: JSON.parse(existingState),
-      })
-    }
-  }, [])
 
   useEffect(() => {
     if (state !== initialState) {
