@@ -174,15 +174,19 @@ function globalReducer(
   }
 }
 
-function getExistingState() {
-  const localState = localStorage.getItem(LOCALSTORAGE_KEY_GLOBAL_CONTEXT)
+function getLocalStorage(): GlobalState | null {
+  const item = localStorage.getItem(LOCALSTORAGE_KEY_GLOBAL_CONTEXT)
   let state = null
   try {
-    state = JSON.parse(localState ?? '')
+    state = JSON.parse(item ?? '')
   } catch (err) {
     state = null
   }
   return state
+}
+
+function setLocalStorage(item: GlobalState) {
+  localStorage.setItem(LOCALSTORAGE_KEY_GLOBAL_CONTEXT, JSON.stringify(item))
 }
 
 const GlobalContext = createContext<{
@@ -197,18 +201,13 @@ export function GlobalProvider({
 }): JSX.Element {
   const [state, dispatch] = useReducer(
     globalReducer,
-    getExistingState() ?? { ...initialState },
+    getLocalStorage() ?? { ...initialState },
   )
 
   const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch])
 
   useEffect(() => {
-    if (state !== initialState) {
-      localStorage.setItem(
-        LOCALSTORAGE_KEY_GLOBAL_CONTEXT,
-        JSON.stringify(state),
-      )
-    }
+    state !== initialState && setLocalStorage(state)
   }, [state])
 
   return (

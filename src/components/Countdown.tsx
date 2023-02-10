@@ -11,6 +11,28 @@ export const Countdown = ({ mode }: CountdownProps) => {
   const { state, dispatch } = useGlobalContext()
   const formattedTime = millisToMinuteSeconds(state[mode].current)
 
+  const decreaseTime = () => {
+    const decreaseIfTicking = () => {
+      if (state[mode].isTicking === false) {
+        clearInterval(id)
+        return
+      }
+
+      dispatch({
+        type: TimerActions.Set,
+        timer: mode,
+        payload: {
+          current: state[mode].current - TimeValues.second,
+          isTicking: true,
+        },
+      })
+    }
+
+    const id = setInterval(decreaseIfTicking, TimeValues.second)
+
+    return () => clearInterval(id)
+  }
+
   const handleToggle = (evt: React.SyntheticEvent<HTMLButtonElement>) => {
     const action = evt.currentTarget.getAttribute('data-action') as
       | TimerActions.Start
@@ -29,25 +51,7 @@ export const Countdown = ({ mode }: CountdownProps) => {
     })
   }
 
-  useEffect(() => {
-    const id = setInterval(() => {
-      if (state[mode].isTicking === false) {
-        clearInterval(id)
-        return
-      }
-
-      dispatch({
-        type: TimerActions.Set,
-        timer: mode,
-        payload: {
-          current: state[mode].current - TimeValues.second,
-          isTicking: true,
-        },
-      })
-    }, TimeValues.second)
-
-    return () => clearInterval(id)
-  }, [state[mode].current, state[mode].isTicking])
+  useEffect(decreaseTime, [state[mode].current, state[mode].isTicking])
 
   return (
     <div className='countdown'>
