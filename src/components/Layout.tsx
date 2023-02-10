@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation } from 'react-router-dom'
-import { useGlobalContext } from '../context/timer'
+import { useGlobalContext } from '../context/global'
 import { Progress } from './Progress'
 
 export const Layout = () => {

@@ -6,7 +6,7 @@ import {
   useReducer,
 } from 'react'
 
-import { Time } from '../types/time'
+import { TimeValues } from '../types/timer'
 
 const LOCALSTORAGE_KEY_GLOBAL_CONTEXT = 'global-context'
 
@@ -16,19 +16,15 @@ export interface TodoItem {
   status: 'BACKLOG' | 'INPROGRESS' | 'COMPLETE'
 }
 
-export interface TodoList {
-  [key: string]: TodoItem
-}
-
 export interface TimerItem {
   current: number
   isTicking: boolean
 }
 
-export enum Mode {
-  pomodoro = 'pomodoro',
-  shortBreak = 'shortBreak',
-  longBreak = 'longBreak',
+export enum TimerMode {
+  Pomodoro = 'pomodoro',
+  ShortBreak = 'shortBreak',
+  LongBreak = 'longBreak',
 }
 
 export interface GlobalState {
@@ -38,41 +34,60 @@ export interface GlobalState {
   todoList: TodoList
 }
 
+export enum TimerActions {
+  Set = 'SET_TIMER',
+  Start = 'START_TIMER',
+  Pause = 'PAUSE_TIMER',
+  Reset = 'RESET_TIMER',
+}
+
+export enum TodoActions {
+  Add = 'ADD_TODO',
+  Update = 'UPDATE_TODO',
+  Remove = 'REMOVE_TODO',
+}
+
+export interface TodoList {
+  [key: string]: TodoItem
+}
+
 export type GlobalAction =
   | {
       type: 'HYDRATE'
       payload: GlobalState
     }
   | {
-      type: 'RESET_TIMER' | 'START_TIMER' | 'PAUSE_TIMER'
-      payload: { timer: Mode }
+      type: TimerActions.Set
+      timer: TimerMode
+      value: number
     }
   | {
-      type: 'SET_TIMER'
-      payload: { timer: Mode; value: number }
+      type: Exclude<TimerActions, TimerActions.Set>
+      timer: TimerMode
     }
   | {
-      type: 'ADD_TODO' | 'UPDATE_TODO'
-      payload: { key: TodoList['key']; item: TodoItem }
+      type: Exclude<TodoActions, TodoActions.Remove>
+      key: keyof TodoList
+      item: TodoItem
     }
   | {
-      type: 'REMOVE_TODO'
-      payload: TodoList['key']
+      type: TodoActions.Remove
+      key: keyof TodoList
     }
 
 export type GlobalDispatch = (action: GlobalAction) => void
 
-const defaultState: GlobalState = {
+const initialState: GlobalState = {
   pomodoro: {
-    current: defaultTimerValueMap(Mode.pomodoro),
+    current: TimeValues[TimerMode.Pomodoro],
     isTicking: false,
   },
   shortBreak: {
-    current: defaultTimerValueMap(Mode.shortBreak),
+    current: TimeValues[TimerMode.ShortBreak],
     isTicking: false,
   },
   longBreak: {
-    current: defaultTimerValueMap(Mode.longBreak),
+    current: TimeValues[TimerMode.LongBreak],
     isTicking: false,
   },
   todoList: {
@@ -84,62 +99,75 @@ const defaultState: GlobalState = {
   },
 }
 
-function defaultTimerValueMap(key: keyof typeof Mode): number {
-  return Time[key]
-}
-
-function globalReducer(state: GlobalState, action: GlobalAction): GlobalState {
+function globalReducer(
+  state: GlobalState = initialState,
+  action: GlobalAction,
+): GlobalState {
   switch (action.type) {
     case 'HYDRATE':
       return {
         ...state,
         ...action.payload,
       }
-    case 'RESET_TIMER': {
-      const key = action.payload.timer
-      const timer = { ...state[key] }
-      timer.current = defaultTimerValueMap(key)
-      return {
-        ...state,
-        [key]: timer,
-      }
-    }
-    case 'START_TIMER':
-    case 'PAUSE_TIMER': {
-      const key = action.payload.timer
+
+    case TimerActions.Start:
+    case TimerActions.Pause: {
+      const key = action.timer
       const timer = { ...state[key] }
       timer.isTicking = action.type === 'START_TIMER'
+
       return {
         ...state,
         [key]: timer,
       }
     }
-    case 'SET_TIMER': {
-      const key = action.payload.timer
-      const timer = { ...state[key] }
-      timer.current = action.payload.value
+
+    case TimerActions.Reset: {
+      const key = action.timer
+      const timerState = { ...state[key] }
+      timerState.current = TimeValues[key]
+
       return {
         ...state,
-        [key]: timer,
+        [key]: timerState,
       }
     }
-    case 'ADD_TODO':
-    case 'UPDATE_TODO': {
-      const key: typeof TodoList.key = action.payload.key
+
+    case TimerActions.Set: {
+      const key = action.timer
+      const timerState = { ...state[key] }
+      timerState.current = action.value
+
+      return {
+        ...state,
+        [key]: timerState,
+      }
+    }
+
+    case TodoActions.Add:
+    case TodoActions.Update: {
+      const key = action.key
+
       return {
         ...state,
         todoList: {
           ...state.todoList,
-          [key]: action.payload.item,
+          [key]: action.item,
         },
       }
     }
-    //     payload: TodoItem
-    //   }
-    // | {
-    //     type: 'REMOVE_TODO'
-    //     payload: TodoList['key']
-    //   }
+
+    case TodoActions.Remove: {
+      const key = action.key
+      const todoState = { ...state.todoList }
+      delete todoState[key]
+
+      return {
+        ...state,
+        todoList: todoState,
+      }
+    }
+
     default:
       return { ...state }
   }
@@ -148,14 +176,14 @@ function globalReducer(state: GlobalState, action: GlobalAction): GlobalState {
 const GlobalContext = createContext<{
   state: GlobalState
   dispatch: React.Dispatch<GlobalAction>
-}>({ state: defaultState, dispatch: () => {} })
+}>({ state: initialState, dispatch: () => {} })
 
 export function GlobalProvider({
   children,
 }: {
   children: React.ReactNode
 }): JSX.Element {
-  const [state, dispatch] = useReducer(globalReducer, { ...defaultState })
+  const [state, dispatch] = useReducer(globalReducer, { ...initialState })
 
   const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch])
 
@@ -170,7 +198,7 @@ export function GlobalProvider({
   }, [])
 
   useEffect(() => {
-    if (state !== defaultState) {
+    if (state !== initialState) {
       localStorage.setItem(
         LOCALSTORAGE_KEY_GLOBAL_CONTEXT,
         JSON.stringify(state),

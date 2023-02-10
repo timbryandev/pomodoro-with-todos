@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-import { GlobalProvider } from './context/timer'
+import { GlobalProvider } from './context/global'
 
 import './App.css'
 import { Layout } from './components/Layout'
