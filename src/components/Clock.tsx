@@ -2,13 +2,12 @@ import { TimerMode, TimerActions, useGlobalContext } from '../context/global'
 import { millisToMinuteSeconds } from '../utils/time'
 
 interface ClockProps {
-  mode: keyof typeof TimerMode
+  mode: TimerMode
 }
 
 export const Clock = ({ mode }: ClockProps) => {
   const { state, dispatch } = useGlobalContext()
-  const timerState = state[TimerMode[mode]]
-
+  const timerState = state[mode]
   const formattedTime = millisToMinuteSeconds(timerState.current)
 
   const handleToggle = (evt: React.SyntheticEvent<HTMLButtonElement>) => {
@@ -18,14 +17,14 @@ export const Clock = ({ mode }: ClockProps) => {
 
     dispatch({
       type: action,
-      timer: TimerMode[mode],
+      timer: mode,
     })
   }
 
   const handleReset = () => {
     dispatch({
       type: TimerActions.Reset,
-      timer: TimerMode[mode],
+      timer: mode,
     })
   }
 
