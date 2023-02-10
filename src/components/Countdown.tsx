@@ -18,11 +18,21 @@ export const Countdown = ({ mode }: CountdownProps) => {
         return
       }
 
+      const newTime = state[mode].current - TimeValues.second
+
+      if (newTime <= 0) {
+        dispatch({
+          type: TimerActions.Reset,
+          timer: mode,
+        })
+        return
+      }
+
       dispatch({
         type: TimerActions.Set,
         timer: mode,
         payload: {
-          current: state[mode].current - TimeValues.second,
+          current: newTime,
           isTicking: true,
         },
       })
