@@ -59,7 +59,7 @@ export type GlobalAction =
   | {
       type: TimerActions.Set
       timer: TimerMode
-      value: number
+      payload: TimerItem
     }
   | {
       type: Exclude<TimerActions, TimerActions.Set>
@@ -126,6 +126,7 @@ function globalReducer(
       const key = action.timer
       const timerState = { ...state[key] }
       timerState.current = TimeValues[key]
+      timerState.isTicking = false
 
       return {
         ...state,
@@ -135,12 +136,10 @@ function globalReducer(
 
     case TimerActions.Set: {
       const key = action.timer
-      const timerState = { ...state[key] }
-      timerState.current = action.value
 
       return {
         ...state,
-        [key]: timerState,
+        [key]: action.payload,
       }
     }
 
