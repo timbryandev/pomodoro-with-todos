@@ -10,24 +10,33 @@ import { TimeValues } from '../types/timer'
 
 const LOCALSTORAGE_KEY_GLOBAL_CONTEXT = 'global-context'
 
-export interface TodoItem {
-  title: string
-  description: string
-  status: 'BACKLOG' | 'INPROGRESS' | 'COMPLETE'
+export enum TodoStatus {
+  Backlog = 'BACKLOG',
+  InProgress = 'IN_PROGRESS',
+  Done = 'COMPLETE',
 }
+
+export interface TodoItem {
+  id: string
+  title: string
+  content: string
+  status: `${TodoStatus}`
+}
+
+export type TodoList = TodoItem[]
 
 export interface TimerItem {
   current: number
   isTicking: boolean
 }
 
-export type TimerModeType = 'pomodoro' | 'shortBreak' | 'longBreak'
-
 export enum TimerMode {
   Pomodoro = 'pomodoro',
   ShortBreak = 'shortBreak',
   LongBreak = 'longBreak',
 }
+
+export type TimerModeType = `${TimerMode}`
 
 export interface GlobalState {
   pomodoro: TimerItem
@@ -47,10 +56,6 @@ export enum TodoActions {
   Add = 'ADD_TODO',
   Update = 'UPDATE_TODO',
   Remove = 'REMOVE_TODO',
-}
-
-export interface TodoList {
-  [key: string]: TodoItem
 }
 
 export type GlobalAction =
@@ -92,13 +97,14 @@ const initialState: GlobalState = {
     current: TimeValues[TimerMode.LongBreak],
     isTicking: false,
   },
-  todoList: {
-    '85e63d29-f36a-4780-aa8d-e5cb2e8d1ebd': {
+  todoList: [
+    {
+      id: '85e63d29-f36a-4780-aa8d-e5cb2e8d1ebd',
       title: 'Example',
-      description: 'This is an example task',
-      status: 'BACKLOG',
+      content: 'This is an example task',
+      status: TodoStatus.Backlog,
     },
-  },
+  ],
 }
 
 function globalReducer(
