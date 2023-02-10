@@ -25,5 +25,5 @@ export const Progress = () => {
     progress = timePassed / TimeValues[mode]
   }
 
-  return <progress value={progress}></progress>
+  return <progress className='timer__progress' value={progress}></progress>
 }

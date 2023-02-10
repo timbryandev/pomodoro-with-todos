@@ -4,7 +4,6 @@ import { Countdown } from './Countdown'
 export const Pomodoro = () => {
   return (
     <div className='timer'>
-      <h2>Pomodoro</h2>
       <Countdown mode={TimerMode.Pomodoro} />
 
       <div className='todos'>

@@ -41,17 +41,18 @@ export const Layout = () => {
           </li>
         </ul>
       </nav>
-      <hr />
+
       <main className='App' data-mode={location.pathname.replace('/', '')}>
         <Progress />
         <Outlet />
       </main>
+
       <div className='hidden'>
         <audio src='backtowork.mp3' data-sound='pomodoro'></audio>
         <audio src='break.mp3' data-sound='shortBreak'></audio>
         <audio src='break.mp3' data-sound='longBreak'></audio>
       </div>
-      <hr />
+
       <footer>
         <p>
           Base styles from the awesome{' '}

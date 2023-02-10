@@ -16,6 +16,10 @@ html {
   --longBreak: hsl(105, 16%, 40%);
 }
 
+main {
+  padding: 1rem;
+}
+
 .nav {
   display: flex;
   justify-content: space-evenly;
@@ -30,10 +34,6 @@ html {
   width: 100%;
   text-align: center;
   padding: 1rem;
-}
-
-progress {
-  width: 100%;
 }
 
 [data-mode='pomodoro'],
@@ -53,4 +53,10 @@ progress {
 
 .active {
   color: red;
+}
+
+.timer__progress {
+  width: 100%;
+
+  display: block;
 }
