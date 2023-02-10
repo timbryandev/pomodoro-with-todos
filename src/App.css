@@ -11,6 +11,7 @@ html {
 }
 
 :root {
+  --border-radius: 6px;
   --pomodoro: hsl(223, 25%, 40%);
   --shortBreak: hsl(48, 23%, 40%);
   --longBreak: hsl(105, 16%, 40%);
@@ -34,6 +35,12 @@ main {
   width: 100%;
   text-align: center;
   padding: 1rem;
+  color: #ffffff;
+  border-bottom: 1px solid var(--background-body);
+}
+
+.nav li a.active {
+  border-bottom-color: transparent;
 }
 
 [data-mode='pomodoro'],
@@ -51,12 +58,7 @@ main {
   background-color: var(--longBreak);
 }
 
-.active {
-  color: red;
-}
-
 .timer__progress {
   width: 100%;
-
   display: block;
 }
