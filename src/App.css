@@ -19,8 +19,38 @@ html {
 .nav {
   display: flex;
   justify-content: space-evenly;
+  list-style-type: none;
+}
+
+.nav li {
+  flex: 1;
+  display: flex;
+}
+.nav li a {
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
 }
 
 progress {
   width: 100%;
+}
+
+[data-mode='pomodoro'],
+.button.pomodoro {
+  background-color: var(--pomodoro);
+}
+
+[data-mode='short-break'],
+.button.short-break {
+  background-color: var(--shortBreak);
+}
+
+[data-mode='long-break'],
+.button.long-break {
+  background-color: var(--longBreak);
+}
+
+.active {
+  color: red;
 }

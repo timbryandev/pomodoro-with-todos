@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from 'react-router-dom'
 
 import { GlobalProvider } from './context/global'
 
@@ -14,7 +19,8 @@ export default function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Layout />}>
-            <Route index element={<Pomodoro />} />
+            <Route index element={<Navigate replace to='/pomodoro' />} />
+            <Route path='/pomodoro' element={<Pomodoro />} />
             <Route path='/short-break' element={<ShortBreak />} />
             <Route path='/long-break' element={<LongBreak />} />
           </Route>
@@ -23,63 +29,3 @@ export default function App() {
     </GlobalProvider>
   )
 }
-
-// function App() {
-//   const [time, setTime] = useState(POMODORO_TIME)
-
-//   useEffect(() => {
-//     let timer1 = setTimeout(() => setTime(prev => prev - 1), 1000)
-
-//     return () => {
-//       clearTimeout(timer1)
-//     }
-//   }, [])
-
-//   return (
-//     <main className='App'>
-//       <progress id='js-progress' value='0'></progress>
-//       <div className='progress-bar'></div>
-//       <div className='timer'>
-//         <div className='button-group mode-buttons' id='js-mode-buttons'>
-//           <button
-//             data-mode='pomodoro'
-//             className='button active mode-button'
-//             id='js-pomodoro'
-//           >
-//             Pomodoro
-//           </button>
-//           <button
-//             data-mode='shortBreak'
-//             className='button mode-button'
-//             id='js-short-break'
-//           >
-//             Short break
-//           </button>
-//           <button
-//             data-mode='longBreak'
-//             className='button mode-button'
-//             id='js-long-break'
-//           >
-//             Long break
-//           </button>
-//         </div>
-//         <Countdown ms={time} />
-//         <button className='main-button' data-action='start' id='js-btn'>
-//           Start
-//         </button>
-
-//         <div className='todos'>
-//           <textarea name='' id='' cols={30} rows={10}></textarea>
-//         </div>
-//       </div>
-
-//       <div className='hidden'>
-//         <audio src='backtowork.mp3' data-sound='pomodoro'></audio>
-//         <audio src='break.mp3' data-sound='shortBreak'></audio>
-//         <audio src='break.mp3' data-sound='longBreak'></audio>
-//       </div>
-//     </main>
-//   )
-// }
-
-// export default App

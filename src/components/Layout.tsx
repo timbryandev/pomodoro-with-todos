@@ -4,17 +4,16 @@ import { Progress } from './Progress'
 
 export const Layout = () => {
   const location = useLocation()
-  const peter = useGlobalContext()
-  console.log({ peter })
+
   return (
     <>
       <nav>
         <ul className='nav'>
           <li>
             <Link
-              to='/'
-              className={`button mode-button ${
-                location.pathname === '/' ? 'active' : ''
+              to='/pomodoro'
+              className={`button mode-button pomodoro ${
+                location.pathname === '/pomodoro' ? 'active' : ''
               }`}
             >
               Pomodoro
@@ -23,7 +22,7 @@ export const Layout = () => {
           <li>
             <Link
               to='/short-break'
-              className={`button mode-button ${
+              className={`button mode-button short-break ${
                 location.pathname === '/short-break' ? 'active' : ''
               }`}
             >
@@ -33,7 +32,7 @@ export const Layout = () => {
           <li>
             <Link
               to='/long-break'
-              className={`button mode-button ${
+              className={`button mode-button long-break ${
                 location.pathname === '/long-break' ? 'active' : ''
               }`}
             >
@@ -43,7 +42,7 @@ export const Layout = () => {
         </ul>
       </nav>
       <hr />
-      <main className='App'>
+      <main className='App' data-mode={location.pathname.replace('/', '')}>
         <Progress />
         <Outlet />
       </main>

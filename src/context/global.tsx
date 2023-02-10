@@ -21,6 +21,8 @@ export interface TimerItem {
   isTicking: boolean
 }
 
+export type TimerModeType = 'pomodoro' | 'shortBreak' | 'longBreak'
+
 export enum TimerMode {
   Pomodoro = 'pomodoro',
   ShortBreak = 'shortBreak',
