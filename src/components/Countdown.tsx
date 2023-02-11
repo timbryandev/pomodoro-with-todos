@@ -74,10 +74,10 @@ export const Countdown = ({ mode }: CountdownProps) => {
   useEffect(decreaseTime, [state[mode].current, state[mode].isTicking])
 
   return (
-    <div className='countdown card'>
+    <div className='countdown timer__card'>
       <span className='countdown__time'>{formattedTime}</span>
       <button
-        className='main-button'
+        className='button button--primary'
         data-action={
           state[mode].isTicking ? TimerActions.Pause : TimerActions.Start
         }
@@ -86,7 +86,7 @@ export const Countdown = ({ mode }: CountdownProps) => {
         {state[mode].isTicking ? 'Pause' : 'Start'}
       </button>
       <button
-        className='main-button'
+        className='button button--secondary'
         data-action={TimerActions.Reset}
         onClick={handleReset}
       >

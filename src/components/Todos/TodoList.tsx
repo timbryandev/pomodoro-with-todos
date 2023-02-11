@@ -25,15 +25,15 @@ export const TodoList = () => {
   return (
     <>
       <TodoListGroup
-        key={TodoStatus.Backlog}
-        group={TodoStatus.Backlog}
-        todos={backlog}
-      />
-
-      <TodoListGroup
         key={TodoStatus.InProgress}
         group={TodoStatus.InProgress}
         todos={inprogress}
+      />
+
+      <TodoListGroup
+        key={TodoStatus.Backlog}
+        group={TodoStatus.Backlog}
+        todos={backlog}
       />
 
       <TodoListGroup

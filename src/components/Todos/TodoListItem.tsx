@@ -7,7 +7,7 @@ export const TodoListItem = ({ content, title }: TodoItem) => (
       name=''
       id=''
       cols={30}
-      rows={10}
+      rows={4}
       defaultValue={content}
     ></textarea>
   </div>

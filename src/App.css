@@ -39,6 +39,14 @@ main {
   border-bottom: 1px solid var(--background-body);
 }
 
+.button--primary,
+.button--secondary {
+  border: 2px solid var(--button-base);
+}
+.button--secondary {
+  background-color: transparent;
+}
+
 .nav li a.active {
   border-bottom-color: transparent;
 }
@@ -61,4 +69,49 @@ main {
 .timer__progress {
   width: 100%;
   display: block;
+}
+
+.timer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-evenly;
+  align-content: space-between;
+}
+
+.timer .timer__card {
+  width: 45%;
+}
+
+.countdown {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.countdown .button {
+  flex: 1;
+  padding: 2rem;
+}
+
+.countdown__time {
+  font-size: 5rem;
+  width: 100%;
+  text-align: center;
+  font-family: 'Lucida Console', Courier, monospace;
+}
+
+.todo__item {
+  background-color: var(--background-alt);
+}
+
+.todo__item h2 {
+  padding: 1rem;
+  padding-bottom: 0;
+}
+
+.todo__item textarea {
+  width: 100%;
+  min-height: 100px;
 }
