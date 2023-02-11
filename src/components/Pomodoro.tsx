@@ -1,6 +1,6 @@
 import { TimerMode } from '../context/global'
 import { Countdown } from './Countdown'
-import Todos from './Todos/TodoList'
+import Todos from './Todos/'
 
 export const Pomodoro = () => {
   return (

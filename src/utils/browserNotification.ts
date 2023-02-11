@@ -1,6 +1,6 @@
 export const hasNotifications = 'Notification' in window
 
-export function requestNotifications() {
+export const requestNotifications = () => {
   if (!hasNotifications) return
 
   if (
@@ -17,7 +17,7 @@ export function requestNotifications() {
   }
 }
 
-export async function showNotification(message: string) {
+export const showNotification = async (message: string) => {
   await requestNotifications()
 
   if (Notification.permission === 'granted') {

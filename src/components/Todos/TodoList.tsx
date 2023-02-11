@@ -1,20 +1,46 @@
-import { useGlobalContext } from '../../context/global'
-import TodoItem from './TodoItem'
+import { TodoItem, TodoStatus, useGlobalContext } from '../../context/global'
+import { TodoListGroup } from './TodoListGroup'
 
-function TodoList() {
+export const TodoList = () => {
   const { state } = useGlobalContext()
   const todos = Object.entries(state.todoList).map(([key, value]) => ({
     ...value,
     key,
   }))
 
+  const { backlog, inprogress, done } = todos.reduce(
+    (acc, cur) => {
+      if (cur.status === TodoStatus.Backlog) acc.backlog.push(cur)
+      if (cur.status === TodoStatus.InProgress) acc.inprogress.push(cur)
+      if (cur.status === TodoStatus.Done) acc.done.push(cur)
+      return acc
+    },
+    {
+      backlog: [] as TodoItem[],
+      inprogress: [] as TodoItem[],
+      done: [] as TodoItem[],
+    },
+  )
+
   return (
-    <div className='todo__list'>
-      {todos.map(todo => (
-        <TodoItem {...todo} />
-      ))}
-    </div>
+    <>
+      <TodoListGroup
+        key={TodoStatus.Backlog}
+        group={TodoStatus.Backlog}
+        todos={backlog}
+      />
+
+      <TodoListGroup
+        key={TodoStatus.InProgress}
+        group={TodoStatus.InProgress}
+        todos={inprogress}
+      />
+
+      <TodoListGroup
+        key={TodoStatus.Done}
+        group={TodoStatus.Done}
+        todos={done}
+      />
+    </>
   )
 }
-
-export default TodoList

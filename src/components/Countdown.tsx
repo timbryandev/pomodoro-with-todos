@@ -74,7 +74,7 @@ export const Countdown = ({ mode }: CountdownProps) => {
   useEffect(decreaseTime, [state[mode].current, state[mode].isTicking])
 
   return (
-    <div className='countdown'>
+    <div className='countdown card'>
       <span className='countdown__time'>{formattedTime}</span>
       <button
         className='main-button'
