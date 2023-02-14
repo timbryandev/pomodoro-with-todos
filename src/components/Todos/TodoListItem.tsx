@@ -21,6 +21,19 @@ export const TodoListItem = (props: TodoItem) => {
     })
   }
 
+  const handleDelete = () => {
+    const hasConfirmedDeletion = window.confirm(
+      'Are you sure you want to PERMANENTLY delete this task?',
+    )
+
+    if (hasConfirmedDeletion) {
+      dispatch({
+        type: TodoActions.Remove,
+        id: props.id,
+      })
+    }
+  }
+
   return (
     <section className='todo__item'>
       <header className='todo__header'>
@@ -58,7 +71,7 @@ export const TodoListItem = (props: TodoItem) => {
               </option>
             ))}
         </select>
-        <button>Delete</button>
+        <button onClick={handleDelete}>Delete</button>
       </footer>
     </section>
   )
