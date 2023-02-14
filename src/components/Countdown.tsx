@@ -4,6 +4,7 @@ import { TimeValues } from '../types/timer'
 import { showNotification } from '../utils/browserNotification'
 import { millisToMinuteSeconds } from '../utils/time'
 import { useAudio } from '../hooks/useAudio'
+import { ButtonWithClick } from './ButtonWithClick'
 
 interface CountdownProps {
   mode: TimerMode
@@ -82,7 +83,7 @@ export const Countdown = ({ mode }: CountdownProps) => {
   return (
     <div className='countdown timer__card'>
       <span className='countdown__time'>{formattedTime}</span>
-      <button
+      <ButtonWithClick
         className='button button--primary'
         data-action={
           state[mode].isTicking ? TimerActions.Pause : TimerActions.Start
@@ -90,7 +91,7 @@ export const Countdown = ({ mode }: CountdownProps) => {
         onClick={handleToggle}
       >
         {state[mode].isTicking ? 'Pause' : 'Start'}
-      </button>
+      </ButtonWithClick>
       <button
         className='button button--secondary'
         data-action={TimerActions.Reset}
