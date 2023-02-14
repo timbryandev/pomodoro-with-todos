@@ -68,7 +68,7 @@ main {
 }
 
 [data-mode='short-break'],
-.todo__group.backlog .todo__item,
+.todo__group.todo .todo__item,
 .button.short-break {
   background-color: var(--shortBreak);
 }

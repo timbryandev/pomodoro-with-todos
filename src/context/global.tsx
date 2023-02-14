@@ -12,7 +12,7 @@ import { TimeValues } from '../types/timer'
 const LOCALSTORAGE_KEY_GLOBAL_CONTEXT = 'global-context'
 
 export enum TodoStatus {
-  Backlog = 'BACKLOG',
+  Backlog = 'TODO',
   InProgress = 'IN_PROGRESS',
   Done = 'COMPLETE',
 }

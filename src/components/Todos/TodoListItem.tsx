@@ -7,12 +7,14 @@ import {
 import { showNotification } from '../../utils/browserNotification'
 import { toTitleCase } from '../../utils/strings'
 
-export interface TodoListItemProps extends TodoItem {}
-
-export const TodoListItem = (props: TodoListItemProps) => {
+export const TodoListItem = (props: TodoItem) => {
   const { dispatch } = useGlobalContext()
 
-  const handleChange = (field: string, value: string) => {
+  const handleChange = (field: keyof TodoItem, value: string) => {
+    if (field === 'status' && value === TodoStatus.Done) {
+      showNotification(`🥳 '${props.title}' has been completed!`)
+    }
+
     dispatch({
       type: TodoActions.Update,
       payload: { ...props, [field]: value },
@@ -42,13 +44,7 @@ export const TodoListItem = (props: TodoListItemProps) => {
       <footer className='todo__footer'>
         <select
           className='todo__status'
-          onChange={evt => {
-            const status = evt.currentTarget.value
-            if (status === TodoStatus.Done) {
-              showNotification(`🥳 '${props.title}' has been completed!`)
-            }
-            handleChange('status', status)
-          }}
+          onChange={evt => handleChange('status', evt.currentTarget.value)}
           value={'default'}
         >
           <option disabled value='default'>
