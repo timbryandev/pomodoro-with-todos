@@ -1,13 +1,7 @@
 import { useLocation } from 'react-router-dom'
 import { TimerModeType, useGlobalContext } from '../context/global'
 import { TimeValues } from '../types/timer'
-
-const toCamelCase = (str: string) =>
-  str
-    .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
-      return index === 0 ? word.toLowerCase() : word.toUpperCase()
-    })
-    .replace(/[\s_-]+/g, '')
+import { toCamelCase } from '../utils/strings'
 
 export const Progress = () => {
   const { state } = useGlobalContext()
