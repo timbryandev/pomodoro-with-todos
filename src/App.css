@@ -12,9 +12,9 @@ html {
 
 :root {
   --border-radius: 6px;
-  --pomodoro: hsl(223, 25%, 40%);
-  --shortBreak: hsl(48, 23%, 40%);
-  --longBreak: hsl(105, 16%, 40%);
+  --pomodoro: hsl(200, 30%, 40%);
+  --shortBreak: hsl(50, 25%, 40%);
+  --longBreak: hsl(100, 15%, 40%);
 }
 
 main {
@@ -62,16 +62,19 @@ main {
 }
 
 [data-mode='pomodoro'],
+.todo__group.inProgress .todo__item,
 .button.pomodoro {
   background-color: var(--pomodoro);
 }
 
 [data-mode='short-break'],
+.todo__group.backlog .todo__item,
 .button.short-break {
   background-color: var(--shortBreak);
 }
 
 [data-mode='long-break'],
+.todo__group.complete .todo__item,
 .button.long-break {
   background-color: var(--longBreak);
 }
@@ -115,6 +118,9 @@ main {
 
 .todo__item {
   background-color: var(--background-alt);
+  padding: 0.2rem 0.5rem;
+  margin-bottom: 2rem;
+  border-radius: 6px;
 }
 
 .todo__item h3 {
@@ -142,6 +148,10 @@ summary {
   padding-left: 2.2rem;
   position: relative;
   cursor: pointer;
+}
+
+details {
+  border: 1px solid var(--background-alt);
 }
 
 details summary::-webkit-details-marker {
