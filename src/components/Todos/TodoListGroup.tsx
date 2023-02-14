@@ -7,10 +7,12 @@ export interface TodoListContainerProps {
 }
 
 export const TodoListGroup = ({ group, todos }: TodoListContainerProps) => (
-  <div className='todo__group timer__card'>
-    <h2>{group}</h2>
+  <details className='todo__group timer__card'>
+    <summary>
+      <h2>{group}</h2>
+    </summary>
     {todos.map(todo => (
       <TodoListItem {...todo} />
     ))}
-  </div>
+  </details>
 )

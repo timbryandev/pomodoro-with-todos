@@ -47,6 +47,16 @@ main {
   background-color: transparent;
 }
 
+.button--plain {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0.25rem;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
 .nav li a.active {
   border-bottom-color: transparent;
 }
@@ -74,13 +84,14 @@ main {
 .timer {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
   justify-content: space-evenly;
   align-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
 }
 
 .timer .timer__card {
-  width: 45%;
+  width: 100%;
 }
 
 .countdown {
@@ -106,12 +117,64 @@ main {
   background-color: var(--background-alt);
 }
 
-.todo__item h2 {
-  padding: 1rem;
-  padding-bottom: 0;
+.todo__item h3 {
+  margin: 1rem;
+  margin-left: 0;
+  flex-grow: 1;
+}
+
+.todo__item h3 input {
+  width: 100%;
+}
+
+.todo__header {
+  display: flex;
+  align-items: center;
 }
 
 .todo__item textarea {
   width: 100%;
   min-height: 100px;
+}
+
+summary {
+  display: block;
+  padding-left: 2.2rem;
+  position: relative;
+  cursor: pointer;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details[open] > summary:before {
+  transform: rotate(90deg);
+}
+
+summary:before {
+  content: '';
+  border-width: 0.4rem;
+  border-style: solid;
+  border-color: transparent transparent transparent currentColor;
+  position: absolute;
+  top: 1.3rem;
+  left: 1rem;
+  transform: rotate(0);
+  transform-origin: 0.2rem 50%;
+  transition: 0.25s transform ease;
+}
+
+summary > * {
+  margin: 0;
+}
+
+@media screen and (min-width: 700px) {
+  .timer {
+    flex-direction: row;
+  }
+
+  .timer .timer__card {
+    width: 45%;
+  }
 }

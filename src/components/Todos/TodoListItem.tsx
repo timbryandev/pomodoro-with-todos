@@ -1,4 +1,5 @@
 import { TodoActions, TodoItem, useGlobalContext } from '../../context/global'
+import { ThreeDotsVertical } from '../../icons'
 
 export interface TodoListItemProps extends TodoItem {}
 
@@ -13,14 +14,22 @@ export const TodoListItem = (props: TodoListItemProps) => {
   }
 
   return (
-    <div className='todo__item'>
-      <h2>
-        <input
-          type='text'
-          defaultValue={props.title}
-          onChange={evt => handleChange('title', evt.currentTarget.value)}
-        />
-      </h2>
+    <section className='todo__item'>
+      <header className='todo__header'>
+        <h3>
+          <input
+            type='text'
+            defaultValue={props.title}
+            onChange={evt => handleChange('title', evt.currentTarget.value)}
+          />
+        </h3>
+        <button
+          className='button button--plain'
+          style={{ margin: '0.5rem', marginRight: '0' }}
+        >
+          <ThreeDotsVertical />
+        </button>
+      </header>
       <textarea
         name=''
         id=''
@@ -29,6 +38,6 @@ export const TodoListItem = (props: TodoListItemProps) => {
         defaultValue={props.content}
         onChange={evt => handleChange('content', evt.currentTarget.value)}
       ></textarea>
-    </div>
+    </section>
   )
 }
