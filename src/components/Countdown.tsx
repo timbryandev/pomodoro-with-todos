@@ -12,10 +12,10 @@ interface CountdownProps {
 
 export const Countdown = ({ mode }: CountdownProps) => {
   const { state, dispatch } = useGlobalContext()
-  const [playingBreak, toggleBreak] = useAudio('/break.mp3')
+  const [isBellPlaying, toggleBellPlaying] = useAudio('/bell.mp3')
   const formattedTime = millisToMinuteSeconds(state[mode].current)
 
-  const playBreak = () => !playingBreak && toggleBreak()
+  const playBell = () => !isBellPlaying && toggleBellPlaying()
 
   const decreaseTime = () => {
     const decreaseIfTicking = () => {
@@ -32,7 +32,7 @@ export const Countdown = ({ mode }: CountdownProps) => {
           timer: mode,
         })
 
-        playBreak()
+        playBell()
 
         showNotification(`${mode} has has ended.`)
 

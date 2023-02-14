@@ -6,13 +6,13 @@ export interface ButtonProps extends React.PropsWithChildren {
 }
 
 export const ButtonWithClick = ({ children, ...rest }: ButtonProps) => {
-  const [playingBeep, toggleBeep] = useAudio('/button-sound.mp3')
+  const [isPlayingClick, toggleClick] = useAudio('/click.mp3')
 
   return (
     <button
       {...rest}
       onClick={evt => {
-        !playingBeep && toggleBeep()
+        !isPlayingClick && toggleClick()
         typeof rest.onClick === 'function' && rest.onClick(evt)
       }}
     >
