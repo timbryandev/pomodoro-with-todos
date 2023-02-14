@@ -1,6 +1,16 @@
 export const toCamelCase = (str: string) =>
   str
-    .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
-      return index === 0 ? word.toLowerCase() : word.toUpperCase()
-    })
-    .replace(/[\s_-]+/g, '')
+    .toLowerCase()
+    .split(/[-_\s]/g)
+    .reduce(
+      (accString, char) =>
+        accString + (char.charAt(0).toUpperCase() + char.slice(1)),
+    )
+
+export const toSentenceCase = (str: string) =>
+  str
+    .replace(/[-_]/g, ' ')
+    .replace(
+      /(\w)\S*/g,
+      char => char.charAt(0).toUpperCase() + char.substring(1).toLowerCase(),
+    )
