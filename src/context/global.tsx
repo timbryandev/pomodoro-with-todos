@@ -5,6 +5,7 @@ import {
   useMemo,
   useReducer,
 } from 'react'
+import TodoList from '../components/Todos'
 
 import { TimeValues } from '../types/timer'
 
@@ -53,9 +54,9 @@ export enum TimerActions {
 }
 
 export enum TodoActions {
-  Add = 'ADD_TODO',
+  Create = 'CREATE_TODO',
   Update = 'UPDATE_TODO',
-  Remove = 'REMOVE_TODO',
+  Remove = 'DELETE_TODO',
 }
 
 export type GlobalAction =
@@ -73,13 +74,17 @@ export type GlobalAction =
       timer: TimerMode
     }
   | {
-      type: Exclude<TodoActions, TodoActions.Remove>
-      key: keyof TodoList
-      item: TodoItem
+      type: TodoActions.Create
+      index: number
+      payload: TodoItem
     }
   | {
       type: TodoActions.Remove
-      key: keyof TodoList
+      id: TodoItem['id']
+    }
+  | {
+      type: TodoActions.Update
+      payload: TodoItem
     }
 
 export type GlobalDispatch = (action: GlobalAction) => void
@@ -164,27 +169,36 @@ const globalReducer = (
       }
     }
 
-    case TodoActions.Add:
-    case TodoActions.Update: {
-      const key = action.key
+    case TodoActions.Create: {
+      const todoList = [...state.todoList]
+      const idx = action.index
+
+      // at index `idx`, delete 0 items and insert our new todo
+      todoList.splice(idx, 0, action.payload)
 
       return {
         ...state,
-        todoList: {
-          ...state.todoList,
-          [key]: action.item,
-        },
+        todoList,
+      }
+    }
+
+    case TodoActions.Update: {
+      const todoList = [...state.todoList]
+      const idx = todoList.findIndex(({ id }) => id === action.payload.id)
+      todoList[idx] = action.payload
+
+      return {
+        ...state,
+        todoList,
       }
     }
 
     case TodoActions.Remove: {
-      const key = action.key
-      const todoState = { ...state.todoList }
-      delete todoState[key]
+      const todoList = state.todoList.filter(({ id }) => id !== action.id)
 
       return {
         ...state,
-        todoList: todoState,
+        todoList,
       }
     }
 

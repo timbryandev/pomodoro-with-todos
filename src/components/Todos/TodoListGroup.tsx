@@ -1,4 +1,4 @@
-import { TodoItem, TodoStatus, useGlobalContext } from '../../context/global'
+import { TodoItem, TodoStatus } from '../../context/global'
 import { TodoListItem } from './TodoListItem'
 
 export interface TodoListContainerProps {
