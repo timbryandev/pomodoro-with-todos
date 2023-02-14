@@ -1,5 +1,11 @@
-import { TodoActions, TodoItem, useGlobalContext } from '../../context/global'
-import { ThreeDotsVertical } from '../../icons'
+import {
+  TodoActions,
+  TodoItem,
+  TodoStatus,
+  useGlobalContext,
+} from '../../context/global'
+import { showNotification } from '../../utils/browserNotification'
+import { toTitleCase } from '../../utils/strings'
 
 export interface TodoListItemProps extends TodoItem {}
 
@@ -16,21 +22,16 @@ export const TodoListItem = (props: TodoListItemProps) => {
   return (
     <section className='todo__item'>
       <header className='todo__header'>
-        <h3>
+        <h3 className='todo__title'>
           <input
             type='text'
             defaultValue={props.title}
             onChange={evt => handleChange('title', evt.currentTarget.value)}
           />
         </h3>
-        <button
-          className='button button--plain'
-          style={{ margin: '0.5rem', marginRight: '0' }}
-        >
-          <ThreeDotsVertical />
-        </button>
       </header>
       <textarea
+        className='todo__content'
         name=''
         id=''
         cols={30}
@@ -38,6 +39,31 @@ export const TodoListItem = (props: TodoListItemProps) => {
         defaultValue={props.content}
         onChange={evt => handleChange('content', evt.currentTarget.value)}
       ></textarea>
+      <footer className='todo__footer'>
+        <select
+          className='todo__status'
+          onChange={evt => {
+            const status = evt.currentTarget.value
+            if (status === TodoStatus.Done) {
+              showNotification(`🥳 '${props.title}' has been completed!`)
+            }
+            handleChange('status', status)
+          }}
+          value={'default'}
+        >
+          <option disabled value='default'>
+            Move to:
+          </option>
+          {Object.values(TodoStatus)
+            .filter(status => status !== props.status)
+            .map(status => (
+              <option key={status} value={status}>
+                {toTitleCase(status)}
+              </option>
+            ))}
+        </select>
+        <button>Delete</button>
+      </footer>
     </section>
   )
 }

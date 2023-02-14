@@ -7,7 +7,7 @@ export const toCamelCase = (str: string) =>
         accString + (char.charAt(0).toUpperCase() + char.slice(1)),
     )
 
-export const toSentenceCase = (str: string) =>
+export const toTitleCase = (str: string) =>
   str
     .replace(/[-_]/g, ' ')
     .replace(

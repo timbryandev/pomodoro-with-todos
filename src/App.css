@@ -143,6 +143,12 @@ main {
   min-height: 100px;
 }
 
+.todo__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
 summary {
   display: block;
   padding-left: 2.2rem;
