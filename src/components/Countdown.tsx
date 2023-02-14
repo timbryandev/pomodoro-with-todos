@@ -3,6 +3,7 @@ import { TimerMode, TimerActions, useGlobalContext } from '../context/global'
 import { TimeValues } from '../types/timer'
 import { showNotification } from '../utils/browserNotification'
 import { millisToMinuteSeconds } from '../utils/time'
+import { useAudio } from '../hooks/useAudio'
 
 interface CountdownProps {
   mode: TimerMode
@@ -10,7 +11,10 @@ interface CountdownProps {
 
 export const Countdown = ({ mode }: CountdownProps) => {
   const { state, dispatch } = useGlobalContext()
+  const [playingBreak, toggleBreak] = useAudio('/break.mp3')
   const formattedTime = millisToMinuteSeconds(state[mode].current)
+
+  const playBreak = () => !playingBreak && toggleBreak()
 
   const decreaseTime = () => {
     const decreaseIfTicking = () => {
@@ -26,6 +30,8 @@ export const Countdown = ({ mode }: CountdownProps) => {
           type: TimerActions.Reset,
           timer: mode,
         })
+
+        playBreak()
 
         showNotification(`${mode} has has ended.`)
 

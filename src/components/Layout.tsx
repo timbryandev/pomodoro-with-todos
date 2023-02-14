@@ -47,12 +47,6 @@ export const Layout = () => {
         <Outlet />
       </main>
 
-      <div className='hidden'>
-        <audio src='backtowork.mp3' data-sound='pomodoro'></audio>
-        <audio src='break.mp3' data-sound='shortBreak'></audio>
-        <audio src='break.mp3' data-sound='longBreak'></audio>
-      </div>
-
       <footer>
         <p>
           Base styles from the awesome{' '}
