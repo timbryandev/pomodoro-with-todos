@@ -1,0 +1,1 @@
+export { ThreeDotsVertical } from './ThreeDotsVertical'

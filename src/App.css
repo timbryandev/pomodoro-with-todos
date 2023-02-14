@@ -1,0 +1,215 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --border-radius: 6px;
+  --pomodoro: hsl(200, 30%, 40%);
+  --shortBreak: hsl(50, 25%, 40%);
+  --longBreak: hsl(100, 15%, 40%);
+}
+
+main {
+  padding: 1rem;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-evenly;
+  list-style-type: none;
+}
+
+.nav li {
+  flex: 1;
+  display: flex;
+}
+.nav li a {
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  color: #ffffff;
+  border-bottom: 1px solid var(--background-body);
+}
+
+.button--primary,
+.button--secondary {
+  border: 2px solid var(--button-base);
+}
+.button--secondary {
+  background-color: transparent;
+}
+
+.button--plain {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0.25rem;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.nav li a.active {
+  border-bottom-color: transparent;
+}
+
+[data-mode='pomodoro'],
+.todo__group.inProgress .todo__item,
+.button.pomodoro {
+  background-color: var(--pomodoro);
+}
+
+[data-mode='short-break'],
+.todo__group.todo .todo__item,
+.button.short-break {
+  background-color: var(--shortBreak);
+}
+
+[data-mode='long-break'],
+.todo__group.complete .todo__item,
+.button.long-break {
+  background-color: var(--longBreak);
+}
+
+.timer__progress {
+  width: 100%;
+  display: block;
+}
+
+.timer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.timer .timer__card {
+  width: 100%;
+}
+
+.countdown {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.countdown .button {
+  flex: 1;
+  padding: 2rem;
+}
+
+.countdown__time {
+  font-size: 5rem;
+  width: 100%;
+  text-align: center;
+  font-family: 'Lucida Console', Courier, monospace;
+}
+
+.todo__item {
+  background-color: var(--background-alt);
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+}
+
+.todo__item h3 {
+  margin: 1rem;
+  margin-left: 0;
+  flex-grow: 1;
+}
+
+.todo__item h3 input {
+  width: 100%;
+}
+
+.todo__header {
+  display: flex;
+  align-items: center;
+}
+
+.todo__item textarea {
+  width: 100%;
+  min-height: 100px;
+}
+
+.todo__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.todo__insert-marker {
+  width: 100%;
+  opacity: 0.6;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  transition: opacity 0.1s;
+}
+
+.todo__insert-marker:hover {
+  opacity: 1;
+}
+
+summary {
+  display: block;
+  padding-left: 2.2rem;
+  position: relative;
+  cursor: pointer;
+}
+
+details {
+  border: 1px solid var(--background-alt);
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details[open] > summary:before {
+  transform: rotate(90deg);
+}
+
+summary:before {
+  content: '';
+  border-width: 0.4rem;
+  border-style: solid;
+  border-color: transparent transparent transparent currentColor;
+  position: absolute;
+  top: 1.3rem;
+  left: 1rem;
+  transform: rotate(0);
+  transform-origin: 0.2rem 50%;
+  transition: 0.25s transform ease;
+}
+
+summary > * {
+  margin: 0;
+}
+
+@media screen and (min-width: 800px) {
+  .timer {
+    flex-direction: row;
+  }
+
+  .timer .timer__card {
+    width: 45%;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.hidden--soft {
+  visibility: hidden;
+}
