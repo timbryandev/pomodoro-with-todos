@@ -119,7 +119,6 @@ main {
 .todo__item {
   background-color: var(--background-alt);
   padding: 0.2rem 0.5rem;
-  margin-bottom: 2rem;
   border-radius: 6px;
 }
 
@@ -147,6 +146,18 @@ main {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.todo__insert-marker {
+  width: 100%;
+  opacity: 0.6;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  transition: opacity 0.1s;
+}
+
+.todo__insert-marker:hover {
+  opacity: 1;
 }
 
 summary {
@@ -185,7 +196,7 @@ summary > * {
   margin: 0;
 }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 800px) {
   .timer {
     flex-direction: row;
   }
@@ -193,4 +204,12 @@ summary > * {
   .timer .timer__card {
     width: 45%;
   }
+}
+
+.hidden {
+  display: none;
+}
+
+.hidden--soft {
+  visibility: hidden;
 }
